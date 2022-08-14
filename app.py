@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 from flask import Flask
 from database.engine import Transaction, Agent, Customer, DB
 
@@ -14,4 +15,5 @@ def index():
     db = DB()
     return ("Am Micheal Scott")
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000", debug=True)
+    port = int(os.environ.get("PORT", 33507))
+    app.run(host="0.0.0.0", port=port, debug=True)
