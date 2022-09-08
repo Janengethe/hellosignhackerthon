@@ -1,0 +1,18 @@
+body { 
+    background: url(images/sign.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .center {
+    border: 5px;
+    line-height: 500px;
+    height: 500px;
+    }
+    .center p {
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle;
+    font-size: x-large;
+    }
