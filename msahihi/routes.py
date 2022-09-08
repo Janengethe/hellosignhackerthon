@@ -12,7 +12,7 @@ from msahihi import helper_methods
 app.url_map.strict_slashes = False
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/')
 def index():
     uin = helper_methods.logged_in(current_user)
     return render_template("index.html", uin=uin)
