@@ -6,7 +6,7 @@ Flask-Login==0.6.2
 Flask-WTF==1.0.1
 greenlet==1.1.2
 gunicorn==20.1.0
-hellosign-python-sdk==4.0.0
+hellosign-python-sdk==6.0.0b0
 idna==3.3
 importlib-metadata==4.12.0
 itsdangerous==2.1.2
