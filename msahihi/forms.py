@@ -24,10 +24,21 @@ class RegisterForm(FlaskForm):
         render_kw={"placeholder": "Password"})
     submit = SubmitField("Sign Up")
     
-    def validate_agent(self, agent_no):
+    def validate_email(self, email):
+        agent = storage.get_agent_by_email(email.data)
+        if agent:
+            raise ValidationError("Email Already registered!")
+        return
+    
+    def validate_agent_name(self, agent_name):
+        agent = storage.get_agent_by_name(agent_name.data)
+        if agent:
+            raise ValidationError("Agent Name already registered!")
+        return
+    def validate_agent_no(self, agent_no):
         agent = storage.get_agent_by_no(agent_no.data)
         if agent:
-            raise ValidationError("Agent Number Already registered!")
+            raise ValidationError("Agent Number already registered!")
         return
 
 class LoginForm(FlaskForm):
@@ -43,7 +54,7 @@ class TrnsctnForm(FlaskForm):
     national_id = StringField(
         validators=[InputRequired()],
         render_kw={"placeholder": "National ID"})
-    txn_type =   StringField(
+    txn_type = StringField(
         validators=[InputRequired(), Length(1)],
         render_kw={"placeholder": "Transaction Type"})
     value = IntegerField(

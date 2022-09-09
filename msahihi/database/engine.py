@@ -100,6 +100,20 @@ class DB():
             print("No such Agent Number")
             return None
 
+    def get_agent_by_email(self, email):
+        try:
+            obj = self.__session.query(Agent).filter_by(email=email).first()
+            return obj
+        except ValueError:
+            return None
+    
+    def get_agent_by_name(self, agent_name):
+        try:
+            obj = self.__session.query(Agent).filter_by(agent_name=agent_name).first()
+            return obj
+        except ValueError:
+            return None
+
     def delete(self, obj):
         self.__session.delete(obj)
         self.__session.commit()

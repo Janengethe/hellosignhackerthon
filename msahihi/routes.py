@@ -48,7 +48,7 @@ def transactions_list():
     return render_template("tlist.html", uin=uin, trans=trans)
 
 
-@app.route('/register', methods=['POST', 'GET'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     uin = helper_methods.logged_in(current_user)
     form = RegisterForm()
@@ -59,9 +59,10 @@ def register():
             email=form.email.data,
             password=form.password.data,
             )
+        
         storage.save(agent)
         hsgn = helper_methods.confi_g(agent.email)
-        flash("Check Email to confirm Signing!", "success")
+        flash("A warm welcome. Check Email to confirm Signing!", "success")
         login_user(agent)
         return redirect(url_for('index'))
     return render_template('register.html', uin=uin, form=form)
@@ -77,6 +78,7 @@ def login():
         agent = storage.get_agent_by_no(form.agent_no.data)
         if agent and check_password_hash(agent.password, form.password.data):
             login_user(agent)
+            flash("Welcome")
             return redirect(url_for('dashboard'))
         else:
             flash('Invalid Agent Number or Password', 'danger')
