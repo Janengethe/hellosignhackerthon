@@ -50,6 +50,12 @@ class LoginForm(FlaskForm):
         render_kw={"placeholder": "Password"})
     submit = SubmitField("Sign In")
 
+    def validate_agent_no(self, agent_no):
+        agent = storage.get_agent_by_no(agent_no.data)
+        if not agent:
+            raise ValidationError("Agent Number not registered!")
+        return
+
 class TrnsctnForm(FlaskForm):
     national_id = StringField(
         validators=[InputRequired()],
