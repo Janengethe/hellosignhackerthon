@@ -10,7 +10,9 @@ from msahihi.database.engine import Agent
 SECRET_KEY = os.urandom(32)
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql:///database.db'
+default_database_path= "postgres:///database.db"
+database_path = os.getenv('DATABASE_URL', default_database_path)
+app.config["SQLALCHEMY_DATABASE_URI"] = database_path
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SECRET_KEY'] = SECRET_KEY
 
