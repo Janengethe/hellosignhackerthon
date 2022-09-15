@@ -61,7 +61,7 @@ def register():
             )
         
         storage.save(agent)
-        hsgn = helper_methods.confi_g(agent.email)
+        # hsgn = helper_methods.confi_g(agent.email)
         flash("A warm welcome. Check Email to confirm Signing!", "success")
         login_user(agent)
         return redirect(url_for('index'))
