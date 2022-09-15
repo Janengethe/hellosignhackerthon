@@ -126,6 +126,13 @@ class DB():
         except(IndexError, TypeError):
             return None
 
+    def show(self):
+        try:
+            obj = self.__session.query(Agent).all()
+            return obj
+        except(IndexError, TypeError):
+            return None
+
     def reload(self):
         Base.metadata.create_all(self.__engine)
         self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
