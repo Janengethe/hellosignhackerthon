@@ -23,7 +23,7 @@ class Agent(Base, UserMixin):
     transaction = relationship("Transaction", backref="agent")
 
     def __repr__(self):
-        return '<Agent %r>' % self.agent_name
+        return ('Agent No: {}, Agent Name: {}, Agent Email: {}, agent Id: {}'.format(self.agent_no, self.agent_name, self.email, self.id))
 
     def __init__(self, *args, **kwargs) -> None:
         self.agent_no = ""
@@ -126,10 +126,10 @@ class DB():
         except(IndexError, TypeError):
             return None
 
-    def show(self):
+    def show_users(self):
         try:
             obj = self.__session.query(Agent).all()
-            return obj
+            return (obj)
         except(IndexError, TypeError):
             return None
 
