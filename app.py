@@ -4,9 +4,6 @@ from flask_login import current_user, login_required, login_user, logout_user, L
 from werkzeug.security import check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 
-import helper_methods
-from forms import TrnsctnForm, LoginForm, RegisterForm
-
 app = Flask(__name__)
 
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -14,6 +11,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 from models import Agent, Transaction
+
+import helper_methods
+from forms import TrnsctnForm, LoginForm, RegisterForm
 
 login_user = LoginManager(app)
 login_user.login_view = 'login'
