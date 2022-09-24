@@ -17,7 +17,8 @@ from forms import TrnsctnForm, LoginForm, RegisterForm
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'Please, Login to continue'
+login_manager.login_view = 'login'
+login_manager.login_message = 'Please, Login to continue'
 
 
 @login_manager.user_loader
@@ -61,7 +62,7 @@ def dashboard():
 def transactions_list():
     uin = helper_methods.logged_in(current_user)
     agent_id = current_user.id
-    trans = Transaction.query.filter_by(agent_id).first()
+    trans = Transaction.query.filter_by(agent_id=agent_id).all()
     return render_template("tlist.html", uin=uin, trans=trans)
 
 
