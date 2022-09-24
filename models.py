@@ -1,7 +1,8 @@
 from werkzeug.security import generate_password_hash
 from app import db
+from flask_login import UserMixin
 
-class Agent(db.Model):
+class Agent(db.Model, UserMixin):
     __tablename__ = "agent"
 
     id = db.Column(db.Integer, nullable=False, primary_key=True)

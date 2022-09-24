@@ -15,13 +15,13 @@ from models import Agent, Transaction
 import helper_methods
 from forms import TrnsctnForm, LoginForm, RegisterForm
 
-login_user = LoginManager(app)
-login_user.login_view = 'login'
-login_user.login_message = 'Please, Login to continue'
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'Please, Login to continue'
 
 
-@login_user.user_loader
-def find_user(agent_id):
+@login_manager.user_loader
+def load_user(agent_id):
     """Locate user by id"""
     return Agent.query.get(int(agent_id))
     
