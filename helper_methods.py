@@ -1,8 +1,52 @@
 #!/usr/bin/env python3
 from pprint import pprint
 
-# from hellosign_sdk import \
-#     ApiClient, ApiException, Configuration, apis, models
+from hellosign_sdk import ApiClient, ApiException, Configuration, apis, models
+
+def hellosignsignature(name, email):
+    configuration = Configuration(
+        username="dd21f0e9b3c6e5f35b385306a99200ab1e23fb35c82c2f73a83ca885378d67f9",
+    )
+    
+    with ApiClient(configuration) as api_client:
+        api = apis.SignatureRequestApi(api_client)
+        
+        signer = models.SubSignatureRequestTemplateSigner(
+            role="Customer",
+            email_address=email,
+            name=name,
+        )
+        
+        custom_field = models.SubCustomField(
+            name="",
+            value="",
+            editor="Customer",
+            required=True,
+        )
+        
+        signing_options = models.SubSigningOptions(
+            draw=True,
+            type=True,
+            upload=True,
+            phone=False,
+            default_type="draw",
+        )
+        
+        data = models.SignatureRequestSendWithTemplateRequest(
+            template_ids=["e573944f4040d3bbb04b752c6e65e32ddb3788bb"],
+            subject="M-Sahihi",
+            message="Confirm and sign.",
+            signers=[signer],
+            custom_fields=[custom_field],
+            signing_options=signing_options,
+            test_mode=True,
+        )
+        
+        try:
+            response = api.signature_request_send_with_template(data)
+            pprint(response)
+        except ApiException as e:
+            print("Exception when calling HelloSign API: %s\n" % e)
 
 
 def logged_in(current_user: int) -> bool:

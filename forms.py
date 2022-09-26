@@ -5,8 +5,7 @@ from wtforms import StringField, SubmitField, PasswordField, IntegerField
 from wtforms.validators import InputRequired, DataRequired, Length, EqualTo
 from wtforms.validators import Email, ValidationError
 
-
-# from msahihi.database import storage
+from models import Agent
 
 
 class RegisterForm(FlaskForm):
@@ -24,22 +23,23 @@ class RegisterForm(FlaskForm):
         render_kw={"placeholder": "Password"})
     submit = SubmitField("Sign Up")
     
-    # def validate_email(self, email):
-    #     agent = storage.get_agent_by_email(email.data)
-    #     if agent:
-    #         raise ValidationError("Email Already registered!")
-    #     return
+    def validate_email(self, email):
+        agent = Agent.query.filter_by(email=email.data).first()
+        if agent:
+            raise ValidationError("Email Already registered! Please use a valid email")
+        return
     
-    # def validate_agent_name(self, agent_name):
-    #     agent = storage.get_agent_by_name(agent_name.data)
-    #     if agent:
-    #         raise ValidationError("Agent Name already registered!")
-    #     return
-    # def validate_agent_no(self, agent_no):
-    #     agent = storage.get_agent_by_no(agent_no.data)
-    #     if agent:
-    #         raise ValidationError("Agent Number already registered!")
-    #     return
+    def validate_agent_name(self, agent_name):
+        agent = Agent.query.filter_by(agent_name=agent_name.data).first()
+        if agent:
+            raise ValidationError("Agent Name already registered!")
+        return
+
+    def validate_agent_no(self, agent_no):
+        agent = Agent.query.filter_by(agent_no=agent_no.data).first()
+        if agent:
+            raise ValidationError("Agent Number already registered!")
+        return
 
 class LoginForm(FlaskForm):
     agent_no = StringField(
@@ -50,11 +50,11 @@ class LoginForm(FlaskForm):
         render_kw={"placeholder": "Password"})
     submit = SubmitField("Sign In")
 
-    # def validate_agent_no(self, agent_no):
-    #     agent = storage.get_agent_by_no(agent_no.data)
-    #     if not agent:
-    #         raise ValidationError("Agent Number not registered!")
-    #     return
+    def validate_agent_no(self, agent_no):
+        agent = Agent.query.filter_by(agent_no=agent_no.data).first()
+        if not agent:
+            raise ValidationError("Agent Number not registered!")
+        return
 
 class TrnsctnForm(FlaskForm):
     national_id = StringField(
